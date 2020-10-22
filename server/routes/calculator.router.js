@@ -43,6 +43,7 @@ runExpression = (expression) => {
     }
 }
 
+// End point /calculator sends query to database to to 10 most recent answers.
 router.get('/', (req, res) => {
   let queryText = `
   SELECT * FROM "calculator_data" ORDER BY "id" DESC LIMIT 10;`;
@@ -53,6 +54,20 @@ router.get('/', (req, res) => {
   })
   .catch(error => {
     console.log('We have an error', error);
+    res.sendStatus(500);
+  });
+});
+
+router.get('/answer', (req, res) => {
+  let queryText = `SELECT "answer" FROM "calculator_data" ORDER BY "id" DESC LIMIT 1;`;
+  pool.query(queryText)
+  .then(result => {
+    // Sends data from db from query in seq 61
+    res.send(result.rows);
+  })
+  .catch(error => {
+    console.log('We have an error in /calculator/answer GET', error);
+    res.sendStatus(500);
   });
 });
 

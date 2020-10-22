@@ -6,10 +6,17 @@ import App from '../src/components/App/App';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
+const answerReducer = (state = [], action) => {
+  if(action.type === 'SET_ANSWER'){
+    console.log('In answer Reducer');
+    return action.payload;
+  }
+  return state;
+}
 
-const mathReducer = (state = [], action) => {
-  if(action.type === "SET_HISTORY"){
-    console.log('In math reducer');
+const historyReducer = (state = [], action) => {
+  if(action.type === 'SET_HISTORY'){
+    console.log('In history Reducer');
     return action.payload;
   }
   return state;
@@ -17,7 +24,8 @@ const mathReducer = (state = [], action) => {
 
 const store = createStore(
   combineReducers({
-    mathReducer,
+    historyReducer,
+    answerReducer
   })
 );
 

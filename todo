@@ -3,14 +3,14 @@
   --Front End--
   [x] Create all buttons (Numbers, Operators, Clear)
   [x] Create Input field for expression
-  [ ] Create local state to hold inputs from users
-  [ ] Upon equals send expression to server (POST)
+  [x] Create local state to hold inputs from users
+  [x] Upon equals send expression to server (POST)
   [ ] Show answer in input field... (GET) --Stretch--
-    [ ] Show last 10 answers most recent first (decsending) (GET)
+    [x] Show last 10 answers most recent first (decsending) (GET)
   
   --Backend--
-  [ ] Create & Set up server
+  [x] Create & Set up server
   [x] Create Database (react_calculator)
-    [ ] Create table to hold expression Database
-  [ ] Calculate Expression received from POST
-    [ ] Send query to DB with expression Database
+    [x] Create table to hold expression Database
+  [x] Calculate Expression received from POST
+    [x] Send query to DB with expression Database

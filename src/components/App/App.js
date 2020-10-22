@@ -10,7 +10,10 @@ import './App.css';
 class App extends Component {
 
   componentDidMount(){
-    this.getAnswers();
+    this.getHistory();
+    this.interval = setInterval(() => {
+      this.getHistory();
+    }, 1000);
   }
 
   // Local state to hold data of mathematic expression
@@ -50,21 +53,27 @@ class App extends Component {
     });
   };
 
-  // Function makes a get request to server to get all answers
-  getAnswers = () => {
-    axios({
-      method: 'GET',
-      url: '/calculator'
-    })
+  //Function makes get request to 
+  getAnswer = () => {
+    axios.get('/calculator/answer')
     .then(response => {
-      console.log('this is the response from the server', response);
-      this.props.dispatch({
-        type: "SET_HISTORY",
-        payload: response.data
-      });
+      console.log('this is the response from the server in getAnswer', response);
+      this.props.dispatch({type: "SET_ANSWER", payload: response.data});
     })
     .catch(error => {
-      console.log('We have an error', error);
+      console.log('We have an error in getAnswer', error);
+    });
+  };
+
+  // Function makes a get request to server to get last 10 answers ordered by most recent
+  getHistory = () => {
+    axios.get('/calculator')
+    .then(response => {
+      console.log('this is the response from the server in getHistory', response);
+      this.props.dispatch({type: "SET_HISTORY", payload: response.data});
+    })
+    .catch(error => {
+      console.log('We have an error in getHistory', error);
     });
   };
 
@@ -93,17 +102,19 @@ class App extends Component {
       secondNumber: this.state.input
     }
 
-    axios({
-      method: 'POST',
-      url: '/calculator',
-      data: expressionToCalculate
-    });
-
-    this.setState({
-      input: '',
-      firstNumber: '',
-      secondNumber: '',
-      operator: '',
+    axios.post('/calculator', expressionToCalculate)
+    .then(result => {
+      this.getAnswer();
+      this.getHistory();
+      this.setState({
+        input: '',
+        firstNumber: '',
+        secondNumber: '',
+        operator: '',
+      });
+    })
+    .catch(error => {
+      console.log('We have an error', error);
     });
   };
 
@@ -115,8 +126,6 @@ class App extends Component {
   };
 
   render(){
-    console.log('this is state', this.state);
-    console.log('these are our props', this.props);
     return(
       <div className="app">
         <div className="calculatorContainer">
@@ -147,15 +156,30 @@ class App extends Component {
           </div>
           <button className="clearBtn" onClick={this.clearInput}>Clear</button>
         </div>
-        <div className="calculatorAnswer">Here is your answer</div>
-        <div className="calculatorHistory">Calculator History</div>
+        <div className="calculatorAnswer">
+          <h2>Answer</h2>
+          {this.props.answer.map((answer, i) => 
+            <li key={i}>{answer.answer}</li>
+          )}
+        </div>
+        <div className="calculatorHistory">
+          <ul>
+            <h2>Last 10 Solutions</h2>
+            {this.props.history.map((history, i) => 
+              <li key={i}>
+                {history.first_number} {history.operator} {history.second_number} = {history.answer}
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
     )
   }
 }
 
 const mapStoreToProps = reduxState => ({
-  reduxState
-})
+  history: reduxState.historyReducer,
+  answer: reduxState.answerReducer
+});
 
 export default connect(mapStoreToProps)(App);
