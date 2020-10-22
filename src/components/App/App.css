@@ -6,9 +6,21 @@
   width: 100%
 }
 
+.calculatorAnswer {
+  display: inline-block;
+  height: 380px;
+  margin-left: 250px;
+}
+
 .calculatorContainer {
   width: 400px;
   height: 500px;
+}
+
+.calculatorHistory {
+  display: flex;
+  height: 380px;
+  margin-left: 250px;
 }
 
 .calculatorInput {
@@ -23,6 +35,7 @@
   outline: 1px solid #888888;
   padding: 1em;
   width: 348px;
+  text-align: right;
 }
 
 .clearBtn {
