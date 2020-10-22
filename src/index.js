@@ -7,22 +7,23 @@ import * as serviceWorker from './serviceWorker';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
+// Reducer listens for 'SET_ANSWER' and returns that answer else returns state which is an empty array.
 const answerReducer = (state = [], action) => {
   if(action.type === 'SET_ANSWER'){
-    console.log('In answer Reducer');
     return action.payload;
   }
   return state;
 }
 
+// Reducer listens for 'SET_HISTORY' and returns 10 most recent solutions else returns empty array. 
 const historyReducer = (state = [], action) => {
   if(action.type === 'SET_HISTORY'){
-    console.log('In history Reducer');
     return action.payload;
   }
   return state;
 }
 
+// Created store with combine reducers. 
 const store = createStore(
   combineReducers({
     historyReducer,
