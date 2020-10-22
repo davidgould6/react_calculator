@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from '../src/components/App/App';
+import * as servicWorker from './serviceWorker';
 
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
@@ -37,3 +38,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+serviceWorker.unregister();
