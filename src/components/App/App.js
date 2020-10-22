@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+// Import axios
+import axios from 'axios';
+
+// Import css
 import './App.css';
 
 class App extends Component {
@@ -11,6 +15,7 @@ class App extends Component {
     operator: '',
   }
 
+  // Function sets state back to empty strings "clearing"
   clearInput = () => {
     console.log('in clear Input on click');
     this.setState({
