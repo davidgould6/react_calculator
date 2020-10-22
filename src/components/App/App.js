@@ -14,6 +14,24 @@ class App extends Component {
     firstNumber: '',
     secondNumber: '',
     operator: '',
+  };
+
+  // Function checks if input is an empty string if it is than unable to add zero, if it is not empty string will add zero to input.
+  addZeroToInput = value => {
+    if(this.state.input !== ""){
+      this.setState({
+        input: this.state.input + value
+      });
+    };
+  };
+
+  // Function uses indexOf function to search for string in this case input property if there is a decimal only allowing one decimal
+  addDecimalToInput = value => {
+    if(this.state.input.indexOf(".") === -1){
+      this.setState({
+        input: this.state.input + value
+      });
+    }
   }
 
   // Function sets state back to empty strings "clearing"
@@ -25,7 +43,7 @@ class App extends Component {
       secondNumber: '',
       operator: '',
     });
-  }
+  };
 
   // Function uses spread operator sets state of firstNumber to what previous value in input was, clears input, and sets operator to the value
   // but is only for operator functions (+, -, X, /)
@@ -39,7 +57,7 @@ class App extends Component {
   };
 
   // Function is given to the "=" button sets the secondNumber property to what is in the current input property
-  sendExpression = value => {
+  sendExpression = () => {
     const expressionToCalculate = {
       firstNumber: this.state.firstNumber,
       operator: this.state.operator,
@@ -50,7 +68,6 @@ class App extends Component {
   // Function uses spread operator to set the input to the previous value + the new value to concatenate.
   toInput = value => {
     this.setState({
-      ...this.state,
       input: this.state.input + value
     });
   };
@@ -80,8 +97,8 @@ class App extends Component {
             <button className="operatorBtn" name="+" onClick={(event) => this.setOperator(event.target.name)}>+</button>
           </div>
           <div className="keyRow">
-            <button className="keypadBtn" name="0" onClick={(event) => this.toInput(event.target.name)}>0</button>
-            <button className="keypadBtn" name="." onClick={(event) => this.toInput(event.target.name)}>.</button>
+            <button className="keypadBtn" name="0" onClick={(event) => this.addZeroToInput(event.target.name)}>0</button>
+            <button className="keypadBtn" name="." onClick={(event) => this.addDecimalToInput(event.target.name)}>.</button>
             <button className="keypadBtn" name="=" onClick={this.sendExpression}>=</button>
             <button className="operatorBtn" name="/" onClick={(event) => this.setOperator(event.target.name)}>/</button>
           </div>
