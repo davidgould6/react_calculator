@@ -126,6 +126,7 @@ class App extends Component {
   };
 
   render(){
+    console.log('these are props ', this.props)
     return(
       <div className="app">
         <div className="calculatorContainer">
