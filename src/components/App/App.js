@@ -3,6 +3,23 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
+
+  // Local state to hold data of mathematic expression
+  state = {
+    firstNumber: '',
+    secondNumber: '',
+    operator: '',
+  }
+
+  clearInput = () => {
+    console.log('in clear Input on click');
+    this.setState({
+      firstNumber: '',
+      secondNumber: '',
+      operator: '',
+    });
+  }
+
   render(){
     return(
       <div className="app">
@@ -32,7 +49,7 @@ class App extends Component {
             <button className="keypadBtn">=</button>
             <button className="operatorBtn">/</button>
           </div>
-          <button className="clearBtn">Clear</button>
+          <button className="clearBtn" onClick={this.clearInput}>Clear</button>
         </div>
       </div>
     )
