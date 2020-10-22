@@ -44,7 +44,6 @@ class App extends Component {
 
   // Function sets state back to empty strings "clearing"
   clearInput = () => {
-    console.log('in clear Input on click');
     this.setState({
       input: '',
       firstNumber: '',
@@ -69,7 +68,6 @@ class App extends Component {
   getHistory = () => {
     axios.get('/calculator')
     .then(response => {
-      console.log('this is the response from the server in getHistory', response);
       this.props.dispatch({type: "SET_HISTORY", payload: response.data});
     })
     .catch(error => {
@@ -126,7 +124,6 @@ class App extends Component {
   };
 
   render(){
-    console.log('these are props ', this.props)
     return(
       <div className="app">
         <div className="calculatorContainer">
