@@ -14,7 +14,7 @@ class App extends Component {
     // this.interval = setInterval(() => {
     //   this.getHistory();
     // }, 1000);
-  }
+  };
 
   // Local state to hold data of mathematic expression
   state = {
@@ -40,7 +40,7 @@ class App extends Component {
         input: this.state.input + value
       });
     }
-  }
+  };
 
   // Function sets state back to empty strings "clearing"
   clearInput = () => {
@@ -119,9 +119,6 @@ class App extends Component {
         console.log('We have an error', error);
       });
     }
-
-
-
   };
 
   // Function uses spread operator to set the input to the previous value + the new value to concatenate.
