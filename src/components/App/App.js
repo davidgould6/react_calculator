@@ -11,9 +11,9 @@ class App extends Component {
 
   componentDidMount(){
     this.getHistory();
-    // this.interval = setInterval(() => {
-    //   this.getHistory();
-    // }, 1000);
+    this.interval = setInterval(() => {
+      this.getHistory();
+    }, 1000);
   };
 
   // Local state to hold data of mathematic expression
