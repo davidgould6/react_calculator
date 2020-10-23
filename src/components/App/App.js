@@ -11,9 +11,9 @@ class App extends Component {
 
   componentDidMount(){
     this.getHistory();
-    this.interval = setInterval(() => {
-      this.getHistory();
-    }, 1000);
+    // this.interval = setInterval(() => {
+    //   this.getHistory();
+    // }, 1000);
   }
 
   // Local state to hold data of mathematic expression
@@ -89,31 +89,39 @@ class App extends Component {
   // Function is given to the "=" button sets the secondNumber property to what is in the current input property creates object conaining expression data to send
   // to server via axios post. Then sets values back to empty strings.
   sendExpression = () => {
-    this.setState({
-      secondNumber: this.state.input,
-      input: '',
-    });
-
-    const expressionToCalculate = {
-      firstNumber: this.state.firstNumber,
-      operator: this.state.operator,
-      secondNumber: this.state.input
+    // prevents calculation to proceed if is not a number or decimal
+    if(isNaN(this.state.input) === true ){
+      alert('error');
+    }
+    // Once passes, runs code block to send expression.
+    else{
+      this.setState({
+        secondNumber: this.state.input,
+        input: '',
+      });
+      const expressionToCalculate = {
+        firstNumber: this.state.firstNumber,
+        operator: this.state.operator,
+        secondNumber: this.state.input
+      }
+      axios.post('/calculator', expressionToCalculate)
+      .then(result => {
+        this.getAnswer();
+        this.getHistory();
+        this.setState({
+          input: '',
+          firstNumber: '',
+          secondNumber: '',
+          operator: '',
+        });
+      })
+      .catch(error => {
+        console.log('We have an error', error);
+      });
     }
 
-    axios.post('/calculator', expressionToCalculate)
-    .then(result => {
-      this.getAnswer();
-      this.getHistory();
-      this.setState({
-        input: '',
-        firstNumber: '',
-        secondNumber: '',
-        operator: '',
-      });
-    })
-    .catch(error => {
-      console.log('We have an error', error);
-    });
+
+
   };
 
   // Function uses spread operator to set the input to the previous value + the new value to concatenate.
@@ -124,6 +132,7 @@ class App extends Component {
   };
 
   render(){
+    console.log('this is state', this.state);
     return(
       <div className="app">
         <div className="calculatorContainer">
