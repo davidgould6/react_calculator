@@ -129,7 +129,6 @@ class App extends Component {
   };
 
   render(){
-    console.log('this is state', this.state);
     return(
       <div className="app">
         <div className="calculatorContainer">
