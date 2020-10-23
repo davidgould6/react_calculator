@@ -9,7 +9,7 @@
 .calculatorAnswer {
   display: inline-block;
   height: 355px;
-  margin-left: 250px;
+  margin-left: 50px;
 }
 
 .calculatorContainer {
@@ -20,7 +20,7 @@
 .calculatorHistory {
   display: flex;
   height: 380px;
-  margin-left: 250px;
+  margin-left: 50px;
 }
 
 .calculatorInput {
